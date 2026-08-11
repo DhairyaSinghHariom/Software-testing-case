@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #d7d7d8, #dcdadd);
+        }
+
+        .login-container {
+            width: 400px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+        }
+
+        .password-rules {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .password-rules p {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .password-rules ul {
+            padding-left: 20px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #5568d9;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 450px) {
+            .login-container {
+                width: 90%;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>Login Page</h1>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label>Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                >
+            </div>
+
+            <div class="password-rules">
+
+                <p>Password must contain:</p>
+
+                <ul>
+                    <li>At least 8 characters</li>
+                    <li>One uppercase letter (A-Z)</li>
+                    <li>One lowercase letter (a-z)</li>
+                    <li>One number (0-9)</li>
+                    <li>One special character (!@#$%^&*)</li>
+                    <li>No spaces</li>
+                </ul>
+
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+
+            <p id="message"></p>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let message = document.getElementById("message");
+
+            // Username validation
+            if (username === "") {
+                message.style.color = "red";
+                message.textContent = "Invalid: Username is required";
+                return;
+            }
+
+            // Password validation
+            if (password === "") {
+                message.style.color = "red";
+                message.textContent = "Invalid: Password is required";
+                return;
+            }
+
+            if (password.length < 8) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Minimum 8 characters required";
+                return;
+            }
+
+            if (password.includes(" ")) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Spaces are not allowed";
+                return;
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Use at least one uppercase letter";
+                return;
+            }
+
+            if (!/[a-z]/.test(password)) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Use at least one lowercase letter";
+                return;
+            }
+
+            if (!/[0-9]/.test(password)) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Use at least one number";
+                return;
+            }
+
+            if (!/[!@#$%^&*]/.test(password)) {
+                message.style.color = "red";
+                message.textContent =
+                    "Invalid Password: Use at least one special character";
+                return;
+            }
+
+            // Valid password
+            message.style.color = "green";
+            message.textContent =
+                "Valid Password ✓ - Login Successful!";
+
+        });
+
+    </script>
+
+</body>
+</html>
+
+<!-- Password must contain:
+
+At least 8 characters
+One uppercase letter (A-Z)
+One lowercase letter (a-z)
+One number (0-9)
+One special character (!@#$%^&*)
+No spaces 
+
+-->
+
+<!--#                  testcases
+
+| TC ID | Test Scenario                   | No. | Test Step                      | Expected Result                               |
+| ----- | ------------------------------- | --: | ------------------------------ | --------------------------------------------- |
+| TC01  | Empty username                  |   1 | Enter password and click Login | `Username is required`                        |
+| TC02  | Empty password                  |   2 | Enter username and click Login | `Password is required`                        |
+| TC03  | Password less than 8 characters |   3 | Enter `abc123`                 | `Password must contain at least 8 characters` |
+| TC04  | Password exactly 8 characters   |   4 | Enter `abc12345`               | Login successful                              |
+| TC05  | Password more than 8 characters |   5 | Enter `abc123456`              | Login successful                              |
+-->
